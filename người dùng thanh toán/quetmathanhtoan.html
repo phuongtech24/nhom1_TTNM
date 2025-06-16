@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RôPhim - Thanh toán MoMo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #eee;
+    }
+
+    /* Navbar */
+    .top-bar {
+  background: #f3f3f3;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  border-bottom: 2px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.logo img {
+  height: 50px;
+}
+
+.hotline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #232323;
+}
+
+
+    /* Payment Section */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 60px);
+      padding: 20px;
+    }
+
+    .payment-box {
+      background: white;
+      padding: 40px 30px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+
+    .momo-logo {
+      width: 60px;
+      height: 60px;
+      background: #a50064;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      border-radius: 12px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .qr-instruction {
+      margin: 10px 0 20px;
+      font-size: 16px;
+    }
+
+    .qr-code img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .expire-note {
+      background: #ffefc2;
+      color: #333;
+      font-weight: bold;
+      margin: 15px auto;
+      padding: 10px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .support {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .support a {
+      color: green;
+      text-decoration: none;
+    }
+
+    .back {
+      margin-top: 15px;
+      display: inline-block;
+      color: #c2185b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+<div class="top-bar">
+  <div class="logo">
+    <img src="/mnt/data/c5c4c231-521c-476d-b9a1-940f5ce3bff1.png" alt="RôPhim logo" style="height: 50px;" />
+  </div>
+  <div class="hotline">Hotline: 0934522245</div>
+</div>
+
+
+  <!-- QR Payment Section -->
+  <div class="container">
+    <div class="payment-box">
+      <div class="momo-logo">momo</div>
+      <div class="qr-instruction">
+        <strong>Quét mã QR để thanh toán</strong><br>
+        Sử dụng <strong>App MoMo</strong> hoặc <strong>quét mã QR</strong> để thanh toán
+      </div>
+      <div class="qr-code">
+        <img src="https://img.vietqr.io/image/970422-123456789-compact.png" alt="QR MoMo">
+      </div>
+      <div class="expire-note">Đơn hàng sẽ hết hạn sau 10 : 00</div>
+      <div class="support">
+        Gặp khó khăn khi thanh toán? <a href="#">Xem hướng dẫn</a>
+      </div>
+      <a href="#" class="back">Quay về</a>
+    </div>
+  </div>
+
+</body>
+</html>

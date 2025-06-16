@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chỉnh sửa thanh toán</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #d9d9d9;
+      color: #111;
+    }
+
+    .main-header {
+      background: #0097c0;
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-toggle {
+      background: transparent;
+      color: white;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      transform: scale(2);
+      transform-origin: left center;
+      margin-left: -0px;
+      padding-left: 0;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      padding-top: 60px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #060e3c;
+      color: white;
+      flex-shrink: 0;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      overflow: hidden;
+    }
+
+    .sidebar .menu a {
+      padding: 14px;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+    }
+
+    .sidebar .menu a.active,
+    .sidebar .menu a:hover {
+      background: #2996ff;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      overflow-y: auto;
+      transition: margin-left 0.3s ease;
+    }
+
+    .form-title {
+      background: #0097c0;
+      color: white;
+      padding: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .info-box {
+      border: 1px solid #ddd;
+      padding: 30px;
+      width: 400px;
+      margin: 0 auto;
+      text-align: left;
+      background: white;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .info-box p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+
+    .info-box ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+
+    .info-box ul li {
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .info-box ul li:before {
+      content: '✓';
+      color: #0097c0;
+      font-weight: bold;
+      position: absolute;
+      left: -20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-header">
+    <div class="header-left">
+      <button class="menu-toggle">☰</button>
+      <span>ADMIN</span>
+      <span>Quản lý thanh toán << Chỉnh sửa thanh toán << Xem</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="#">Quản lý phim</a>
+        <a href="#">Quản lý thanh toán</a>
+        <a class="active" href="#">Chỉnh sửa thanh toán</a>
+        <a href="#">Quản lý nhập dững</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <h2 class="form-title">Thông tin chi tiết</h2>
+      <div class="info-box">
+        <h3>VIP cá nhân</h3>
+        <p>50.000 VND/tháng</p>
+        <ul>
+          <li>Xem phim không quảng cáo</li>
+          <li>Hỗ trợ phim xem offline</li>
+          <li>Chat trực video cao</li>
+          <li>Xem phim trên máy tính bảng</li>
+          <li>Truy cập độc quyền bộ phim đặc biệt trong tháng</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+      });
+    }
+  </script>
+</body>
+</html>
