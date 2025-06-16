@@ -13,6 +13,7 @@ body {
 .admin-container {
   display: flex;
   width: 100%;
+  margin-top: 49px;
 }
 
 /* Sidebar */
@@ -150,11 +151,14 @@ th {
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0; top: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.25);
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.25);
   transition: background 0.2s;
 }
+
 #filter-modal .filter-box {
   background: #fff;
   border: 1.5px solid #1da1f2;
@@ -167,10 +171,19 @@ th {
   box-shadow: 0 4px 32px #0002;
   animation: popup-fade-in 0.25s;
 }
+
 @keyframes popup-fade-in {
-  from { transform: translateY(40px) scale(0.98); opacity: 0; }
-  to { transform: none; opacity: 1; }
+  from {
+    transform: translateY(40px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
+
 #filter-modal h2 {
   text-align: center;
   font-size: 2rem;
@@ -178,17 +191,20 @@ th {
   margin-bottom: 10px;
   color: #1d5e88;
 }
+
 #filter-modal hr {
   margin-bottom: 22px;
   border: none;
   border-top: 1.5px solid #e0e0e0;
 }
+
 #filter-form label {
   flex: 1;
   font-size: 1.13rem;
   font-weight: 500;
   color: #222;
 }
+
 #filter-form input,
 #filter-form select {
   flex: 1.2;
@@ -201,30 +217,36 @@ th {
   margin-left: 8px;
   transition: border 0.2s;
 }
+
 #filter-form input:focus,
 #filter-form select:focus {
   border: 1.5px solid #1da1f2;
   outline: none;
 }
+
 #filter-form .fa-calendar-days {
   margin-left: -28px;
   color: #1da1f2;
   font-size: 1.1em;
   cursor: pointer;
 }
+
 #filter-form .filter-row {
   display: flex;
   align-items: center;
   margin-bottom: 18px;
 }
+
 #filter-form .filter-row:last-child {
   margin-bottom: 28px;
 }
+
 #filter-form .filter-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
+
 #filter-cancel {
   background: #e0e0e0;
   color: #222;
@@ -236,9 +258,11 @@ th {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 #filter-cancel:hover {
   background: #bdbdbd;
 }
+
 #filter-form button[type="submit"] {
   background: #1da1f2;
   color: #fff;
@@ -250,6 +274,38 @@ th {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 #filter-form button[type="submit"]:hover {
   background: #157dc1;
+}
+
+.main-header {
+  background: #0097c0;
+  color: white;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-toggle {
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
 }
