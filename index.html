@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đánh giá và nhận xét</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-toggle">Quản lý phim ▼</a>
+        </div>
+        <a href="#">Quản lý thanh toán ▼</a>
+        <a href="#">Quản lý tài khoản và người dùng ▼</a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-toggle">Quản lý đánh giá và nhận xét ▼</a>
+          <div class="dropdown-content">
+            <button>Kiểm duyệt nhận xét</button>
+            <button>Nhận xét đã bị xóa</button>
+          </div>
+        </div>
+        <a href="#">Quản lý báo cáo và phân tích ▼</a>
+      </nav>
+    </aside>
+
+    <!-- Đánh giá và Nhận xét -->
+    <main class="main-content" id="main-review">
+      <div style="position: relative;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <h1>Đánh giá và nhận xét</h1>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>👤 Người dùng</th>
+            <th>🎬 Tên phim</th>
+            <th>⭐ Đánh giá</th>
+            <th>💬 Nhận xét</th>
+            <th>📅 Ngày gửi</th>
+            <th>⚙️ Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="review-table-body">
+        </tbody>
+      </table>
+    </main>
+
+    <!-- Nhận xét đã bị xóa -->
+    <main class="main-content" id="main-deleted" style="display:none">
+      <div style="position: relative;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <h1>Nhận xét đã bị xóa</h1>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>👤 Người dùng</th>
+            <th>🎬 Tên phim</th>
+            <th>⭐ Đánh giá</th>
+            <th>💬 Nhận xét</th>
+            <th>📅 Ngày xóa</th>
+            <th>⚙️ Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="deleted-review-table-body">
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+
+  <!-- Bảng filter popup -->
+  <div id="filter-modal" style="display:none;">
+    <div class="filter-box">
+      <h2>Phân loại</h2>
+      <hr>
+      <form id="filter-form">
+        <div class="filter-row">
+          <label>Thời gian</label>
+          <input name="date" type="date"/>
+        </div>
+        <div class="filter-row">
+          <label>Tên phim</label>
+          <input name="movie" type="text" placeholder="Parasite"/>
+        </div>
+        <div class="filter-row">
+          <label>Đánh giá</label>
+          <select name="rating">
+            <option value="">Chọn</option>
+            <option value="5">5⭐</option>
+            <option value="4">4⭐</option>
+            <option value="3">3⭐</option>
+            <option value="2">2⭐</option>
+            <option value="1">1⭐</option>
+          </select>
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="filter-cancel">Hủy</button>
+          <button type="submit">Xác nhận</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Dropdown sidebar
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        const parent = this.parentElement;
+        parent.classList.toggle('open');
+        // Đóng các dropdown khác
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          if (menu !== parent) menu.classList.remove('open');
+        });
+      });
+    });
+    // Đóng dropdown khi click ra ngoài
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.dropdown-menu')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('open'));
+      }
+    });
+    // Xác nhận khi bấm nút Duyệt
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent.trim() === 'Duyệt') {
+        btn.addEventListener('click', function (e) {
+          const confirmed = confirm('Bạn có chắc chắn muốn duyệt nhận xét này?');
+          if (!confirmed) {
+            e.preventDefault();
+            return;
+          }
+          // Thực hiện hành động duyệt ở đây nếu cần
+        });
+      }
+    });
+
+    // Dữ liệu mẫu cho bảng
+    const reviews = [
+      {
+        user: 'hoangminh_96',
+        movie: 'The Batman (2022)',
+        rating: '⭐⭐⭐⭐☆',
+        rating_num: '4',
+        comment: 'Phim cực kỳ hấp dẫn, hình ảnh đẹp và âm thanh tốt.',
+        date: '30/05/2025'
+      },
+      {
+        user: 'nguyenthanh07',
+        movie: 'Stranger Things - SS4',
+        rating: '⭐⭐⭐☆☆',
+        rating_num: '3',
+        comment: 'Nội dung hơi kéo dài, nhưng vẫn ổn.',
+        date: '29/05/2025'
+      },
+      {
+        user: 'khanhle_04',
+        movie: 'Parasite (2019)',
+        rating: '⭐⭐⭐⭐⭐',
+        rating_num: '5',
+        comment: 'Tuyệt phẩm, kịch bản quá xuất sắc!',
+        date: '20/05/2025'
+      },
+      {
+        user: 'tramy_2002',
+        movie: 'Money Heist – P3',
+        rating: '⭐⭐⭐☆☆',
+        rating_num: '3',
+        comment: 'Mất chất dần so với phần đầu.',
+        date: '15/02/2025'
+      },
+      {
+        user: 'ngocanh0210',
+        movie: 'Interstellar (2014)',
+        rating: '⭐⭐⭐⭐⭐',
+        rating_num: '5',
+        comment: 'Một trong những phim viễn tưởng hay nhất!',
+        date: '2/03/2025'
+      },
+      // Thêm dữ liệu mẫu khác nếu muốn
+    ];
+
+    // Render dữ liệu vào bảng
+    const tbody = document.getElementById('review-table-body');
+    tbody.innerHTML = reviews.map(r => `
+      <tr>
+        <td>${r.user}</td>
+        <td>${r.movie}</td>
+        <td>${r.rating}</td>
+        <td>${r.comment}</td>
+        <td>${r.date}</td>
+        <td><button class="btn approve">Duyệt</button> <button class="btn delete">Xóa</button></td>
+      </tr>
+    `).join('');
+
+    // Xác nhận khi bấm nút Duyệt (cần gán lại sau khi render)
+    document.querySelectorAll('.approve').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const confirmed = confirm('Bạn có chắc chắn muốn duyệt nhận xét này?');
+        if (!confirmed) {
+          e.preventDefault();
+          return;
+        }
+        // Ẩn dòng chứa nút Duyệt sau khi xác nhận
+        this.closest('tr').style.display = 'none';
+      });
+    });
+    // Xác nhận khi bấm nút Xóa
+    document.querySelectorAll('.delete').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const confirmed = confirm('Bạn có chắc chắn muốn xóa nhận xét này?');
+        if (!confirmed) {
+          e.preventDefault();
+          return;
+        }
+        // Lấy dữ liệu dòng bị xóa
+        const row = this.closest('tr');
+        const cells = row.querySelectorAll('td');
+        const deletedTbody = document.getElementById('deleted-review-table-body');
+        // Tạo ngày xóa hiện tại
+        const today = new Date();
+        const dateStr = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
+        // Thêm dòng mới vào bảng Nhận xét đã bị xóa
+        deletedTbody.innerHTML += `
+          <tr>
+            <td>${cells[0].textContent}</td>
+            <td>${cells[1].textContent}</td>
+            <td>${cells[2].textContent}</td>
+            <td>${cells[3].textContent}</td>
+            <td>${dateStr}</td>
+            <td><button class="btn restore">Khôi phục</button></td>
+          </tr>
+        `;
+        // Ẩn dòng chứa nút Xóa sau khi xác nhận
+        row.style.display = 'none';
+      });
+    });
+    // Xác nhận khi bấm nút Khôi phục
+    document.addEventListener('click', function (e) {
+      if (e.target && e.target.classList.contains('restore')) {
+        const confirmed = confirm('Bạn có chắc chắn muốn khôi phục nhận xét này?');
+        if (!confirmed) {
+          e.preventDefault();
+          return;
+        }
+        // Lấy dữ liệu dòng bị khôi phục
+        const row = e.target.closest('tr');
+        const cells = row.querySelectorAll('td');
+        const tbody = document.getElementById('review-table-body');
+        // Thêm dòng mới vào bảng Đánh giá và nhận xét (ngày gửi lấy từ ngày xóa)
+        tbody.innerHTML += `
+          <tr>
+            <td>${cells[0].textContent}</td>
+            <td>${cells[1].textContent}</td>
+            <td>${cells[2].textContent}</td>
+            <td>${cells[3].textContent}</td>
+            <td>${cells[4].textContent}</td>
+            <td><button class="btn approve">Duyệt</button> <button class="btn delete">Xóa</button></td>
+          </tr>
+        `;
+        // Xóa dòng khỏi bảng Nhận xét đã bị xóa
+        row.remove();
+        // Gán lại sự kiện cho các nút mới thêm
+        rebindApproveDeleteEvents();
+      }
+    });
+
+    // Hàm gán lại sự kiện cho các nút Duyệt và Xóa mới thêm
+    function rebindApproveDeleteEvents() {
+      document.querySelectorAll('.approve').forEach(btn => {
+        if (!btn.dataset.bound) {
+          btn.addEventListener('click', function (e) {
+            const confirmed = confirm('Bạn có chắc chắn muốn duyệt nhận xét này?');
+            if (!confirmed) {
+              e.preventDefault();
+              return;
+            }
+            this.closest('tr').style.display = 'none';
+          });
+          btn.dataset.bound = 'true';
+        }
+      });
+      document.querySelectorAll('.delete').forEach(btn => {
+        if (!btn.dataset.bound) {
+          btn.addEventListener('click', function (e) {
+            const confirmed = confirm('Bạn có chắc chắn muốn xóa nhận xét này?');
+            if (!confirmed) {
+              e.preventDefault();
+              return;
+            }
+            const row = this.closest('tr');
+            const cells = row.querySelectorAll('td');
+            const deletedTbody = document.getElementById('deleted-review-table-body');
+            const today = new Date();
+            const dateStr = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
+            deletedTbody.innerHTML += `
+              <tr>
+                <td>${cells[0].textContent}</td>
+                <td>${cells[1].textContent}</td>
+                <td>${cells[2].textContent}</td>
+                <td>${cells[3].textContent}</td>
+                <td>${dateStr}</td>
+                <td><button class="btn restore">Khôi phục</button></td>
+              </tr>
+            `;
+            row.style.display = 'none';
+          });
+          btn.dataset.bound = 'true';
+        }
+      });
+    }
+    // Thêm sự kiện cho 2 nút chuyển tab main
+    const btns = document.querySelectorAll('.dropdown-content button');
+    const mainReview = document.getElementById('main-review');
+    const mainDeleted = document.getElementById('main-deleted');
+    if (btns.length >= 2) {
+      // Đặt mặc định active cho nút đầu tiên khi load trang
+      btns[0].classList.add('active');
+      btns[0].addEventListener('click', function () {
+        mainReview.style.display = '';
+        mainDeleted.style.display = 'none';
+        btns[0].classList.add('active');
+        btns[1].classList.remove('active');
+      });
+      btns[1].addEventListener('click', function () {
+        mainReview.style.display = 'none';
+        mainDeleted.style.display = '';
+        btns[1].classList.add('active');
+        btns[0].classList.remove('active');
+      });
+    }
+
+    // Hiển thị bảng filter khi bấm icon kính lúp
+    document.querySelectorAll('.fa-magnifying-glass').forEach(icon => {
+      icon.style.cursor = 'pointer';
+      icon.addEventListener('click', function (e) {
+        document.getElementById('filter-modal').style.display = 'block';
+      });
+    });
+    // Đóng filter khi bấm Hủy hoặc click ra ngoài
+    document.getElementById('filter-cancel').onclick = function () {
+      document.getElementById('filter-modal').style.display = 'none';
+    };
+    document.getElementById('filter-modal').addEventListener('click', function (e) {
+      if (e.target === this) this.style.display = 'none';
+    });
+    // Xử lý filter dữ liệu bảng khi bấm Xác nhận filter
+    document.getElementById('filter-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const date = form.date.value;
+      const movie = form.movie.value.trim();
+      const rating = form.rating.value;
+      // Nếu cả 3 trường đều rỗng thì cảnh báo
+      if (!date && !movie && !rating) {
+        alert('Vui lòng nhập ít nhất một điều kiện để lọc!');
+        return;
+      }
+      const movieLower = movie.toLowerCase();
+      let filterDate = '';
+      if (date) {
+        const d = new Date(date);
+        filterDate = d.getDate().toString().padStart(2, '0') + '/' + (d.getMonth() + 1).toString().padStart(2, '0') + '/' + d.getFullYear();
+      }
+      const filtered = reviews.filter(r => {
+        const matchDate = !filterDate || r.date === filterDate;
+        const matchMovie = !movieLower || r.movie.toLowerCase().includes(movieLower);
+        const matchRating = !rating || r.rating.replace(/[^0-9]/g, '') === rating;
+        return matchDate && matchMovie && matchRating;
+      });
+      tbody.innerHTML = filtered.map(r => `
+        <tr>
+          <td>${r.user}</td>
+          <td>${r.movie}</td>
+          <td>${r.rating}</td>
+          <td>${r.comment}</td>
+          <td>${r.date}</td>
+          <td><button class="btn approve">Duyệt</button> <button class="btn delete">Xóa</button></td>
+        </tr>
+      `).join('');
+      rebindApproveDeleteEvents();
+      document.getElementById('filter-modal').style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>

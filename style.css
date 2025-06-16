@@ -1,0 +1,255 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-container {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #060e3c;
+  color: white;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+.sidebar.hidden {
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar .menu a {
+  padding: 14px;
+  color: white;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar .menu a.active,
+.sidebar .menu a:hover {
+  background: #2996ff;
+}
+
+.dropdown-menu {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  display: block;
+  padding: 14px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle.active {
+  background: #2996ff;
+}
+
+.dropdown-content {
+  display: none;
+  flex-direction: column;
+  background: #07124a;
+  position: static;
+  padding-left: 20px;
+}
+
+.dropdown-menu.open .dropdown-content {
+  display: flex;
+}
+
+.dropdown-content button {
+  padding: 10px 14px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+}
+
+.dropdown-content button:hover,
+.dropdown-content button.active {
+  background: #2996ff;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9fbfc;
+}
+
+.main-content h1 {
+  color: #1d5e88;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #d8f0fb;
+  font-weight: bold;
+}
+
+.btn {
+  padding: 6px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn.delete {
+  background-color: #f44336;
+  margin-left: 5px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.fa-magnifying-glass {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 24px;
+  color: #1d5e88;
+  cursor: pointer;
+}
+
+/* Popup filter modal */
+#filter-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.25);
+  transition: background 0.2s;
+}
+#filter-modal .filter-box {
+  background: #fff;
+  border: 1.5px solid #1da1f2;
+  border-radius: 18px;
+  width: 500px;
+  max-width: 92vw;
+  margin: 70px auto 0 auto;
+  padding: 32px 28px 24px 28px;
+  position: relative;
+  box-shadow: 0 4px 32px #0002;
+  animation: popup-fade-in 0.25s;
+}
+@keyframes popup-fade-in {
+  from { transform: translateY(40px) scale(0.98); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+#filter-modal h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1d5e88;
+}
+#filter-modal hr {
+  margin-bottom: 22px;
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+}
+#filter-form label {
+  flex: 1;
+  font-size: 1.13rem;
+  font-weight: 500;
+  color: #222;
+}
+#filter-form input,
+#filter-form select {
+  flex: 1.2;
+  padding: 7px 12px;
+  font-size: 1.08rem;
+  border: 1.2px solid #b5d6f7;
+  border-radius: 6px;
+  background: #f8fcff;
+  font-weight: 600;
+  margin-left: 8px;
+  transition: border 0.2s;
+}
+#filter-form input:focus,
+#filter-form select:focus {
+  border: 1.5px solid #1da1f2;
+  outline: none;
+}
+#filter-form .fa-calendar-days {
+  margin-left: -28px;
+  color: #1da1f2;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+#filter-form .filter-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+#filter-form .filter-row:last-child {
+  margin-bottom: 28px;
+}
+#filter-form .filter-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+#filter-cancel {
+  background: #e0e0e0;
+  color: #222;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 10px 32px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#filter-cancel:hover {
+  background: #bdbdbd;
+}
+#filter-form button[type="submit"] {
+  background: #1da1f2;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 10px 32px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#filter-form button[type="submit"]:hover {
+  background: #157dc1;
+}
