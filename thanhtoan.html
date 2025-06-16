@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nâng cấp gói phim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Roboto', Arial, sans-serif; }
+
+    body {
+      margin: 0;
+      background: #f3f3f3;
+      color: #222;
+    }
+
+    .top-bar {
+      background: #fff;
+      height: 74px;
+      position: relative;
+      border-bottom: 3px solid #2696fb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 45px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      background: #ffd600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .logo-icon::before {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M12 7v18l14-9z"/></svg>') no-repeat center/contain;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .logo-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #ffd600;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .logo-subtitle {
+      font-size: 1.02rem;
+      color: #b7b7b7;
+      font-weight: 400;
+      margin-top: -4px;
+      letter-spacing: 0;
+    }
+
+    .hotline {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #232323;
+      margin-right: 10px;
+      margin-top: 8px;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 26px;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 45px;
+      margin-top: 20px;
+    }
+
+    .plans {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .plan-card {
+      background: #fff;
+      border-radius: 6px;
+      padding: 32px 34px 28px 34px;
+      box-shadow: 0 2px 12px rgba(60,60,60,0.09);
+      min-width: 310px;
+      max-width: 340px;
+      width: 340px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-sizing: border-box;
+      border: none;
+      position: relative;
+    }
+    .plan-title {
+      font-size: 1.22rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1b1b1b;
+    }
+    .plan-price-row {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+    .plan-price {
+      font-size: 2.1rem;
+      font-weight: bold;
+      color: #111;
+    }
+    .plan-unit {
+      font-size: 1.08rem;
+      color: #dedede;
+      font-weight: 700;
+      margin-left: 4px;
+      margin-bottom: 2px;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px 0;
+      width: 100%;
+      font-size: 1.08rem;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      color: #222;
+      font-weight: 400;
+      margin-bottom: 7px;
+      text-align: left;
+    }
+    .plan-features li::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      background: url('data:image/svg+xml;utf8,<svg height="15" width="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5" fill="none"/><path d="M4 8l2.5 2L11 6" stroke="#232323" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+      display: inline-block;
+    }
+    .plan-btn {
+      background: #e9f8e4;
+      color: #222;
+      font-size: 1.12rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 36px;
+      margin-top: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      box-shadow: none;
+    }
+    .plan-btn.active {
+      background: #d8e6d1;
+      color: #222;
+      cursor: default;
+      font-weight: bold;
+      border: none;
+    }
+    .plan-btn:active, .plan-btn:hover {
+      background: #b7e3ac;
+    }
+
+    @media (max-width: 1000px) {
+      .plans { flex-direction: column; align-items: center; }
+      .plan-card { width: 98vw; max-width: 370px; margin-bottom: 22px; }
+      .main-container { padding: 0 2vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <div class="logo-text">
+        <span class="logo-title">RôPhim</span>
+        <span class="logo-subtitle">Ở nhà là có phim hay</span>
+      </div>
+    </div>
+    <span class="hotline">Hotline: 0934522245</span>
+  </div>
+  <div class="main-container">
+    <div class="title">Nâng cấp gói phim của bạn</div>
+    <div class="plans">
+      <!-- Plan 1 -->
+      <div class="plan-card">
+        <div class="plan-title">Miễn phí</div>
+        <div class="plan-price-row">
+          <div class="plan-price">0</div>
+          <div class="plan-unit">VND/tháng</div>
+        </div>
+        <ul class="plan-features">
+          <li>Xem phim với quảng cáo</li>
+          <li>Hạn chế tính năng tải phim về</li>
+          <li>Chất lượng video giới hạn</li>
+          <li>Giới hạn thời gian xem trong ngày</li>
+        </ul>
+        <button class="plan-btn active">Đang sử dụng</button>
+      </div>
+      <!-- Plan 2 -->
+      <div class="plan-card">
+        <div class="plan-title">Vip cá nhân</div>
+        <div class="plan-price-row">
+          <div class="plan-price">50.000</div>
+          <div class="plan-unit">VND/tháng</div>
+        </div>
+        <ul class="plan-features">
+          <li>Xem phim không quảng cáo</li>
+          <li>Hỗ trợ tải phim về xem offline</li>
+          <li>Chất lượng video cao</li>
+          <li>Xem phim trên một thiết bị</li>
+          <li>Truy cập được những bộ phim độc quyền mới nhanh hơn</li>
+        </ul>
+        <button class="plan-btn">Lựa chọn</button>
+      </div>
+      <!-- Plan 3 -->
+      <div class="plan-card">
+        <div class="plan-title">Vip gia đình</div>
+        <div class="plan-price-row">
+          <div class="plan-price">120.000</div>
+          <div class="plan-unit">VND/tháng</div>
+        </div>
+        <ul class="plan-features">
+          <li>Xem phim không quảng cáo</li>
+          <li>Hỗ trợ tải phim về xem offline</li>
+          <li>Chất lượng video cao</li>
+          <li>Xem đồng thời trên 4 thiết bị</li>
+          <li>Truy cập được những bộ phim độc quyền mới nhanh hơn</li>
+        </ul>
+        <button class="plan-btn">Lựa chọn</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
