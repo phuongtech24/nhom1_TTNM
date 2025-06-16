@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RoPhim - One Piece 1</title>
+  <style>
+    body {
+      background-color: #0f0e1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #171414;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+    }
+
+    .menu-toggle {
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .menu-toggle img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn-vip {
+      background-color: #FFD700;
+      border: none;
+      padding: 5px 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .search-icon, .user-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container {
+      display: flex;
+      padding: 30px;
+    }
+
+    .poster {
+      flex: 1;
+      padding-right: 30px;
+      text-align: center;
+    }
+
+    .poster img {
+      width: 200px;
+      border-radius: 10px;
+    }
+
+    .poster button {
+      background-color: #FFD700;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .tags {
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #1f1f2e;
+      border: 1px solid #888;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin-right: 5px;
+      font-size: 12px;
+    }
+
+    .details {
+      flex: 2;
+    }
+
+    .actions {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 10px;
+    }
+
+    .actions div {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .rating {
+      background-color: #3dbdf1;
+      padding: 3px 8px;
+      border-radius: 5px;
+      margin-left: auto;
+      color: white;
+      font-weight: bold;
+    }
+
+    .description {
+      margin-top: 10px;
+      color: #bbb;
+      max-height: 150px;
+      overflow: hidden;
+      line-height: 1.6;
+    }
+
+    .tab-menu {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    .episodes {
+      margin-top: 10px;
+    }
+
+    .episodes button {
+      background-color: #2f2f3f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-right: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <!-- Nút 3 gạch -->
+    <button class="menu-toggle">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/menu--v1.png" alt="menu">
+    </button>
+
+    <!-- Phần bên phải -->
+    <div class="header-right">
+      <button class="btn-vip">ĐĂNG KÝ VIP</button>
+      <img src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png" alt="search" class="search-icon">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="user" class="user-icon">
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Poster & Thông tin -->
+    <div class="poster">
+      <img src="https://upload.wikimedia.org/wikipedia/vi/8/8a/One_Piece_Stampede_poster.jpg" alt="Poster phim">
+      <div>One Piece 1</div>
+      <button>Xem phim</button>
+      <div class="tags">
+        <span class="tag">T13</span>
+        <span class="tag">2025</span>
+        <span class="tag">Tập 3</span>
+        <span class="tag">VIP</span>
+      </div>
+    </div>
+
+    <!-- Thông tin chi tiết -->
+    <div class="details">
+      <div class="actions">
+        <div>⬇️ Tải phim</div>
+        <div>📤 Chia sẻ</div>
+        <div>❤️ Yêu thích</div>
+        <div>💬 Bình luận</div>
+        <div class="rating">9.0 Đánh giá</div>
+      </div>
+
+      <div class="description">
+        Phim kể về hành trình trở thành vua hải tặc của cậu bé Luffy. Hành trình tuy khó khăn nhưng đầy thú vị. Hứa hẹn đem lại trải nghiệm thú vị. Phim kể về hành trình trở thành vua hải tặc của cậu bé Luffy. Hành trình tuy khó khăn nhưng đầy thú vị. Hứa hẹn đem lại trải nghiệm thú vị...
+      </div>
+
+      <div class="tab-menu">
+        <div>Tập phim</div>
+        <div>Đạo diễn</div>
+        <div>Thể loại</div>
+        <div>Trailer</div>
+      </div>
+
+      <div class="episodes">
+        <button>Tập 1</button>
+        <button>Tập 2</button>
+        <button>Tập 3</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

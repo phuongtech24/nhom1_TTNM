@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thêm Phim</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f0f2f5;
+      color: #111;
+    }
+
+    .main-header {
+      background: #0097c0;
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-toggle {
+      background: transparent;
+      color: white;
+      font-size: 11px;
+      border: none;
+      cursor: pointer;
+      transform: scale(2);
+      transform-origin: left center;
+      margin-left: -0px;
+      padding-left: 0;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      padding-top: 60px;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #060e3c;
+      color: white;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar.hidden {
+      width: 0;
+      overflow: hidden;
+    }
+
+    .sidebar .menu a {
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .sidebar .menu a:hover,
+    .sidebar .menu a.active {
+      background: #2996ff;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      background-color: #081551;
+    }
+
+    .submenu a {
+      padding-left: 40px;
+      font-size: 14px;
+    }
+
+    .has-submenu::after {
+      content: "▸";
+      position: absolute;
+      right: 20px;
+    }
+
+    .has-submenu.open::after {
+      content: "▾";
+    }
+
+    .has-submenu.open + .submenu {
+      display: flex;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      overflow-y: auto;
+    }
+
+    .container.sidebar-hidden .main-content {
+      margin-left: 0;
+    }
+
+    .form-title {
+      background: #0097c0;
+      color: white;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .form-wrapper {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .form-section, .preview-section {
+      flex: 1;
+      min-width: 300px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+      display: inline-block;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: gold;
+    }
+
+    .save-btn, .preview-btn {
+      background: #00aaff;
+      color: white;
+    }
+
+    .preview-box {
+      height: 300px;
+      background: #eee;
+      border: 1px dashed #999;
+    }
+
+    .dropdown {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      z-index: 100;
+      margin-top: 4px;
+      width: 100%;
+    }
+
+    .dropdown-item {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="main-header">
+    <div class="header-left">
+      <button id="toggleBtn" class="menu-toggle">☰</button>
+      <span>ADMIN</span>
+    </div>
+  </div>
+
+  <!-- Container -->
+  <div class="container" id="container">
+    <aside class="sidebar" id="sidebar">
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="#" class="has-submenu">Quản lý phim</a>
+        <div class="submenu">
+          <a href="index1.html">Danh sách phim</a>
+          <a class="active" href="#">Sửa phim</a>
+        </div>
+        <a href="#">Quản lý thanh toán</a>
+        <a href="#">Quản lý tài khoản và người dùng</a>
+        <a href="#">Quản lý đánh giá và nhận xét</a>
+        <a href="#">Quản lý báo cáo và phân tích</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <h2 class="form-title">SỬA PHIM</h2>
+      <div class="form-wrapper">
+        <section class="form-section">
+          <h3>📄 FORM NHẬP THÔNG TIN PHIM</h3>
+
+          <label for="tenPhim">Tên phim:</label>
+          <input id="tenPhim" type="text" placeholder="One piece" />
+
+          <label for="moTa">Mô tả:</label>
+          <textarea id="moTa" placeholder="Phim hay"></textarea>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label for="nam">Năm:</label>
+              <input id="nam" type="text" placeholder="2024" />
+            </div>
+            <div style="flex: 1">
+              <label for="theLoai">Thể loại:</label>
+              <input id="theLoai" type="text" placeholder="Hài hước" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label for="quocGia">Quốc gia:</label>
+              <input id="quocGia" type="text" placeholder="Việt Nam" />
+            </div>
+            <div style="flex: 1">
+              <label for="ngayChieu">Ngày chiếu:</label>
+              <input id="ngayChieu" type="text" placeholder="24/06/2025" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label for="phanLoai">Phân loại:</label>
+              <input id="phanLoai" type="text" placeholder="VIP,18+" />
+            </div>
+            <div style="flex: 1">
+              <label for="trangThai">Trạng thái:</label>
+              <input id="trangThai" type="text" placeholder="Trailer" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label for="trailer">Trailer:</label>
+              <input id="trailer" type="file" />
+            </div>
+            <div style="flex: 1">
+              <label for="poster">Poster:</label>
+              <input id="poster" type="file" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label for="thoiLuong">Thời lượng:</label>
+              <input id="thoiLuong" type="text" placeholder="130" />
+            </div>
+            <div style="flex: 1">
+              <label for="daoDien">Đạo diễn:</label>
+              <input id="daoDien" type="text" placeholder="Phương" />
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="cancel-btn">Hủy</button>
+            <button class="save-btn">Lưu</button>
+            <button class="preview-btn">Xem trước</button>
+          </div>
+        </section>
+
+        <section class="preview-section">
+          <h3>🔍 VÙNG XEM TRƯỚC</h3>
+          <div class="preview-box"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("toggleBtn").addEventListener("click", () => {
+      const sidebar = document.getElementById("sidebar");
+      const container = document.getElementById("container");
+      sidebar.classList.toggle("hidden");
+      container.classList.toggle("sidebar-hidden");
+    });
+
+    document.querySelectorAll('.has-submenu').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.classList.toggle('open');
+      });
+    });
+
+    function createDropdown(inputId, options) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+
+      input.readOnly = true;
+      input.style.cursor = 'pointer';
+
+      input.addEventListener('click', () => {
+        closeAllDropdowns();
+
+        const dropdown = document.createElement('div');
+        dropdown.className = 'dropdown';
+
+        options.forEach(opt => {
+          const item = document.createElement('div');
+          item.textContent = opt;
+          item.className = 'dropdown-item';
+          item.addEventListener('click', () => {
+            input.value = opt;
+            closeAllDropdowns();
+          });
+          dropdown.appendChild(item);
+        });
+
+        input.parentNode.appendChild(dropdown);
+      });
+    }
+
+    function closeAllDropdowns() {
+      document.querySelectorAll('.dropdown').forEach(el => el.remove());
+    }
+
+    document.addEventListener('click', function(e) {
+      const isInput = e.target.matches('input');
+      const isDropdown = e.target.closest('.dropdown');
+      if (!isInput && !isDropdown) {
+        closeAllDropdowns();
+      }
+    });
+
+    createDropdown("theLoai", ["Hành động", "Hài hước", "Tình cảm", "Viễn tưởng", "Hoạt hình", "Gia đình"]);
+    createDropdown("quocGia", ["Việt Nam", "Hoa Kỳ", "Pháp", "Đức", "Nhật Bản"]);
+    createDropdown("phanLoai", ["18+", "Phim lẻ", "Phim bộ", "Mới phát hành"]);
+    createDropdown("trangThai", ["Đang chiếu", "Sắp chiếu", "Trailer"]);
+     // Xử lý khi nhấn nút Hủy
+  document.querySelector('.cancel-btn').addEventListener('click', function () {
+    if (confirm("Bạn có chắc muốn hủy?")) {
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    }
+  });
+
+  // Xử lý khi nhấn nút Lưu
+  document.querySelector('.save-btn').addEventListener('click', function () {
+    const tenPhim = document.getElementById('tenPhim').value.trim();
+    const moTa = document.getElementById('moTa').value.trim();
+
+    if (!tenPhim || !moTa) {
+      alert('Vui lòng nhập đầy đủ Tên phim và Mô tả!');
+      return;
+    }
+
+    // (Giả sử) thực hiện lưu vào localStorage hoặc log ra console
+    const data = {
+      tenPhim,
+      moTa,
+      nam: document.getElementById('nam').value,
+      theLoai: document.getElementById('theLoai').value,
+      quocGia: document.getElementById('quocGia').value,
+      ngayChieu: document.getElementById('ngayChieu').value,
+      phanLoai: document.getElementById('phanLoai').value,
+      trangThai: document.getElementById('trangThai').value,
+      thoiLuong: document.getElementById('thoiLuong').value,
+      daoDien: document.getElementById('daoDien').value,
+    };
+
+    console.log("Phim đã lưu:", data);
+    alert("Phim đã được lưu thành công!");
+  });
+  </script>
+</body>
+</html>

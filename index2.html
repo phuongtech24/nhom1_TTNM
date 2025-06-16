@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết phim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f0f2f5;
+    }
+
+    .main-header {
+      background: #0097c0;
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-toggle {
+      background: transparent;
+      color: white;
+      font-size: 22px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-bar input {
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      padding-top: 60px;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #060e3c;
+      color: white;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar.hidden {
+      width: 0;
+      overflow: hidden;
+    }
+
+    .sidebar .menu a {
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+      position: relative;
+    }
+
+    .sidebar .menu a:hover,
+    .sidebar .menu a.active {
+      background: #2996ff;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      background-color: #081551;
+    }
+
+    .submenu a {
+      padding-left: 40px;
+      font-size: 14px;
+    }
+
+    .has-submenu::after {
+      content: "▸";
+      position: absolute;
+      right: 20px;
+    }
+
+    .has-submenu.open::after {
+      content: "▾";
+    }
+
+    .has-submenu.open + .submenu {
+      display: flex;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      overflow-y: auto;
+    }
+
+    .movie-detail {
+      display: flex;
+      background: #eaeaea;
+      border-radius: 6px;
+      padding: 20px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .movie-left {
+      width: 220px;
+      text-align: center;
+    }
+
+    .movie-left img {
+      width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    .movie-left button {
+      margin-top: 10px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .movie-left .desc-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: white;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .movie-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .movie-right h2 {
+      margin: 0;
+    }
+
+    .movie-meta {
+      margin: 10px 0;
+    }
+
+    .movie-meta span {
+      display: inline-block;
+      width: 45%;
+      margin-bottom: 6px;
+    }
+
+    .trailer {
+      margin-top: 10px;
+    }
+
+    .trailer img {
+      width: 200px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="main-header">
+    <div class="header-left">
+      <button class="menu-toggle" id="toggleBtn">☰</button>
+      <span>Chi tiết phim</span>
+    </div>
+    <div class="search-bar">
+      <span>🔍</span>
+      <input type="text" placeholder="Tìm kiếm">
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="container" id="container">
+    <aside class="sidebar" id="sidebar">
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+
+        <a href="#" class="has-submenu">Quản lý phim</a>
+        <div class="submenu">
+          <a href="index1.html">Danh sách phim</a>
+          <a href="#">Thêm phim</a>
+        </div>
+
+        <a href="#">Quản lý thanh toán</a>
+        <a href="#">Quản lý tài khoản và người dùng</a>
+        <a href="#">Quản lý đánh giá và nhận xét</a>
+        <a href="#">Quản lý báo cáo và phân tích</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="movie-detail">
+        <div class="movie-left">
+          <img src="https://upload.wikimedia.org/wikipedia/vi/8/8a/One_Piece_Stampede_poster.jpg" alt="Poster">
+          <button>Sửa</button>
+          <div class="desc-box">
+            <strong>Mô tả</strong><br>
+            Phim kể về hành trình trở thành vua hải tặc của cậu bé Luffy. Hành trình tuy khó khăn nhưng đầy thú vị. Hứa hẹn sẽ đem lại trải nghiệm thú vị.
+          </div>
+        </div>
+        <div class="movie-right">
+          <div>
+            <h2>ONE PIECE 1</h2>
+            <div class="movie-meta">
+              <span><strong>Năm:</strong> 2015</span>
+              <span><strong>Ngày chiếu:</strong> 20/10/2025</span>
+              <span><strong>Thời lượng:</strong> 120 phút</span>
+              <span><strong>Quốc gia:</strong> Nhật Bản</span>
+              <span><strong>Phân loại:</strong> VIP</span>
+              <span><strong>Thể loại:</strong> Anime, Hành động</span>
+              <span><strong>Trạng thái:</strong> Trailer</span>
+              <span><strong>Đạo diễn:</strong> Odo</span>
+            </div>
+            <div class="trailer">
+              <strong>Trailer</strong><br>
+              <img src="https://i.ytimg.com/vi/KzjvWUvHkvQ/maxresdefault.jpg" alt="Trailer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Toggle sidebar
+    document.getElementById("toggleBtn").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("hidden");
+      document.getElementById("container").classList.toggle("sidebar-hidden");
+    });
+
+    // Submenu toggle
+    document.querySelectorAll('.has-submenu').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
