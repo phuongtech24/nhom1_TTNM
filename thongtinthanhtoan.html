@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh toán gói RôPhim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Roboto', Arial, sans-serif; }
+
+    body {
+      margin: 0;
+      background: #f3f3f3;
+      color: #222;
+    }
+
+    .top-bar {
+      background: #fff;
+      height: 74px;
+      position: relative;
+      border-bottom: 3px solid #2696fb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 45px;
+      box-shadow: 0 2px 12px rgba(60,60,60,0.09);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      background: #ffd600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .logo-icon::before {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M12 7v18l14-9z"/></svg>') no-repeat center/contain;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .logo-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #ffd600;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .logo-subtitle {
+      font-size: 1.02rem;
+      color: #b7b7b7;
+      font-weight: 400;
+      margin-top: -4px;
+      letter-spacing: 0;
+    }
+
+    .hotline {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #232323;
+      margin-right: 10px;
+      margin-top: 8px;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .section-header {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1b1b1b;
+    }
+
+    .payment-instructions {
+      flex: 1;
+    }
+
+    .payment-instructions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    .payment-instructions li {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      color: #222;
+      font-weight: 400;
+      margin-bottom: 7px;
+    }
+
+    .payment-instructions li::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      background: url('data:image/svg+xml;utf8,<svg height="15" width="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5" fill="none"/><path d="M4 8l2.5 2L11 6" stroke="#232323" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+      display: inline-block;
+    }
+
+    .payment-options {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .payment-method input {
+      margin: 0;
+    }
+
+    .payment-method img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .payment-details {
+      background: #e0e0e0;
+      padding: 20px;
+      border-radius: 4px;
+      flex: 1;
+    }
+
+    .payment-details p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+
+    .payment-details .label {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .payment-details .value {
+      color: #222;
+    }
+
+    .pay-button {
+      background: #e9f8e4;
+      color: #222;
+      font-size: 1.12rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 36px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .pay-button:hover {
+      background: #b7e3ac;
+    }
+
+    .info-text {
+      color: green;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1000px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .payment-options {
+        flex-direction: column;
+      }
+      .payment-method {
+        width: 100%;
+      }
+      .payment-details {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <div class="logo-text">
+        <span class="logo-title">RôPhim</span>
+        <span class="logo-subtitle">Ở nhà là có phim hay</span>
+      </div>
+    </div>
+    <span class="hotline">Hotline: 0934522245</span>
+  </div>
+  <div class="main-container">
+    <div class="payment-instructions">
+      <div class="section-header">Xem danh sách gói</div>
+      <h2>Chọn phương thức thanh toán</h2>
+      <ul>
+        <li> Chọn phương thức thanh toán phù hợp & bật nut Thanh toán để hoàn thành đăng ký gói bạn nhé</li>
+        <li>Hãy bật tự động gia hạn để không bỏ lỡ cơ hội xem phim chất lượng cao nhé</li>
+        <li>Bạn hãy yên tâm RôPhim luôn đảm bảo mọi giao dịch của bạn đều tuyệt mật</li>
+      </ul>
+      <div class="payment-options">
+        <div class="payment-method">
+          <input type="radio" name="payment-method" id="momo" checked>
+          <label for="momo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/MoMo_Logo.svg/1200px-MoMo_Logo.svg.png" alt="MoMo">
+            Vi MoMo
+          </label>
+        </div>
+        <div class="payment-method">
+          <input type="radio" name="payment-method" id="zalopay">
+          <label for="zalopay">
+            <img src="https://play-lh.googleusercontent.com/1-hPx2sKHDzK-8r2rvsRXaA4E6Yq0Y0aD4uD8A6uA5qOAZlJ5q8Q0V5pT7D2eQ9aX8M" alt="ZaloPay">
+            Ví điện tử ZaloPay
+          </label>
+        </div>
+        <div class="payment-method">
+          <input type="radio" name="payment-method" id="visa">
+          <label for="visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa">
+            Thẻ thanh toán quốc tế (Visa)
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="payment-details">
+      <h2>Thông tin thanh toán</h2>
+                <div class="info">
+                    <p><strong>Tên gói:</strong> VIP cá nhân</p>
+                    <p><strong>Thời hạn gói:</strong> 01 Tháng - Tự động gia hạn</p>
+                    <p><strong>Ngày hủy lúc:</strong> 31/05/2025</p>
+                    <p><strong>Sử dụng đến:</strong> 31/05/2025</p>
+                    <p><strong>Kỳ thanh toán tiếp theo:</strong> 30/06/2025</p>
+                    <p><strong>Trị giá:</strong> 50.000 VND</p>
+                </div>
+                <button class="pay-button">Thanh toán ngay</button>
+                <p class="note">
+                    Bằng việc thanh toán, bạn xác nhận đã đọc và đồng ý với Hợp
+                    đồng với Chính sách của RôPhim, chấp nhận cho RôPhim tự động
+                    gia hạn kỳ gói dịch vụ tiếp theo. Bạn có thể hủy gói dịch vụ
+                    bất cứ lúc nào.
+                </p>
+            </div>
+  </div>
+</body>
+</html>
