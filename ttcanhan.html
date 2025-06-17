@@ -16,7 +16,7 @@
             padding: 10px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Phân bố logo và phần còn lại, profile-icon về bên phải */
+            justify-content: space-between;
         }
         .logo {
             height: 40px;
@@ -27,7 +27,10 @@
             align-items: center;
         }
         .profile-icon {
-            height: 30px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 50%;
         }
         .sidebar {
             width: 200px;
@@ -36,6 +39,11 @@
             height: 100vh;
             position: fixed;
             padding-top: 20px;
+            left: 0;
+            transition: left 0.3s ease;
+        }
+        .sidebar.hidden {
+            left: -200px;
         }
         .sidebar a {
             color: #fff;
@@ -44,10 +52,13 @@
             padding: 10px 20px;
         }
         .container {
-            display: flex;
             margin-left: 220px;
             min-height: 100vh;
             background-color: #fff;
+            transition: margin-left 0.3s ease;
+        }
+        .container.full {
+            margin-left: 20px;
         }
         .content {
             padding: 20px;
@@ -57,102 +68,153 @@
         .info-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 20px; 
         }
         .info-row label {
             font-weight: bold;
-            margin-right: 20px;
+            margin-right: 30px;
             text-align: left;
             width: 120px;
+            line-height: 30px; 
         }
         .info-row span {
             text-align: left;
             flex-grow: 1;
+            font-size: 16px;
         }
-        .footer {
-            background-color: #4682b4;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            margin-left: -220px;
-        }
-        .headleft{
+        .headleft {
             text-align: left;
             margin-left: 60px;
             flex-grow: 1;
             font-size: 30px;
         }
-        .profile-icon {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 50px; /* khoảng cách so với ảnh */
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  border-radius: 8px;
-  min-width: 160px;
-  z-index: 999;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 10px 16px;
-  text-decoration: none;
-  color: black;
-}
-
-.dropdown-menu a:hover {
-  background-color: #f0f0f0;
-}
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 160px;
+            z-index: 999;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: black;
+        }
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        .menu-toggle {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .menu-toggle div {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-left">
+            <div class="menu-toggle" id="menuToggle">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
             <img src="logo.png" alt="RoPhim Logo" class="logo">
         </div>
         <div class="headleft">
             <span>Thông tin cá nhân</span>
         </div>
         <div class="profile-dropdown">
-        <img src="profile-icon.png" alt="Profile Icon" class="profile-icon" id="profileIcon">
-
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="#">Thông tin cá nhân</a>
-            <a href="#" id="suattcn">Sửa thông tin cá nhân</a>
-            <a href="#">Đăng xuất</a>
+            <img src="avatar.png" alt="Profile Icon" class="profile-icon" id="profileIcon">
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" id="infoLink1">Thông tin cá nhân</a>
+                <a href="#" id="editLink1">Sửa thông tin cá nhân</a>
+                <a href="#">Đăng xuất</a>
+            </div>
         </div>
     </div>
+    <div class="sidebar" id="sidebar">
+        <a href="#" id="infoLink">Thông tin cá nhân</a>
+        <a href="#" id="editLink">Sửa thông tin cá nhân</a>
     </div>
-    <div class="sidebar">
-        <a href="#">Thông tin cá nhân</a>
-        <a href="#">Sửa thông tin cá nhân</a>
-    </div>
-    <div class="container">
+    <div class="container" id="container">
         <div class="content">
             <div class="info-row"><label>Họ Tên:</label><span>Nguyễn Văn A</span></div>
             <div class="info-row"><label>Email:</label><span>abc@gmail.com</span></div>
             <div class="info-row"><label>SDT:</label><span>0934717274</span></div>
-            <div class="info-row"><label>Giới tính:</label><span>Vip gia đình</span></div>
+            <div class="info-row"><label>Gói dịch vụ:</label><span>Vip gia đình</span></div>
             <div class="info-row"><label>Trạng thái:</label><span>Đang hoạt động</span></div>
             <div class="info-row"><label>Ngày đăng ký:</label><span>01/01/2025</span></div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const container = document.getElementById('container');
+            const menuToggle = this;
+
+            sidebar.classList.toggle('hidden');
+            container.classList.toggle('full');
+            menuToggle.classList.toggle('active');
+        });
+
+        document.getElementById('profileIcon').addEventListener('click', function() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdownMenu');
+            const profileIcon = document.getElementById('profileIcon');
+            if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        document.getElementById('infoLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'ttcanhan.html';
+        });
+
+        document.getElementById('editLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'suattcanhan.html';
+        });
+        document.getElementById('infoLink1').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'ttcanhan.html';
+        });
+
+        document.getElementById('editLink1').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'suattcanhan.html';
+        });
+    </script>
 </body>
 </html>
